@@ -2,6 +2,7 @@ package com.pyler.enablecmcallrec;
 
 import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
 import android.content.Context;
+import android.os.Build;
 import de.robv.android.xposed.IXposedHookInitPackageResources;
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XC_MethodReplacement;
@@ -32,6 +33,10 @@ public class EnableCallRecording implements IXposedHookLoadPackage,
 		}
 		resparam.res.setReplacement(DIALER, "bool", "call_recording_enabled",
 				true);
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+			resparam.res.setReplacement(DIALER, "integer",
+					"call_recording_audio_source", 4);
+		}
 	}
 
 }
