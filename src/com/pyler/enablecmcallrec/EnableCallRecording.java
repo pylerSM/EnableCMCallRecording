@@ -2,7 +2,6 @@ package com.pyler.enablecmcallrec;
 
 import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
 import android.content.Context;
-import android.media.MediaRecorder;
 import de.robv.android.xposed.IXposedHookInitPackageResources;
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XC_MethodReplacement;
@@ -22,10 +21,6 @@ public class EnableCallRecording implements IXposedHookLoadPackage,
 		findAndHookMethod(CALL_RECORDING_SERVICE, lpparam.classLoader,
 				"isEnabled", Context.class,
 				XC_MethodReplacement.returnConstant(true));
-		findAndHookMethod(CALL_RECORDING_SERVICE, lpparam.classLoader,
-				"getAudioSource",
-				XC_MethodReplacement
-						.returnConstant(MediaRecorder.AudioSource.VOICE_CALL));
 	}
 
 	@Override
